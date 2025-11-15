@@ -26,8 +26,8 @@ All colors MUST be HSL.
     --muted: 187 30% 96%;
     --muted-foreground: 210 15% 50%;
 
-    --accent: 187 76% 73%;
-    --accent-foreground: 210 20% 15%;
+    --accent: 25 95% 53%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -38,7 +38,8 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    --hero-gradient: linear-gradient(135deg, hsl(187 96% 44%) 0%, hsl(187 76% 73%) 100%);
+    --phoenix-gradient: linear-gradient(135deg, hsl(187 96% 44%) 0%, hsl(25 95% 53%) 100%);
+    --hero-gradient: linear-gradient(135deg, hsl(187 96% 44%) 0%, hsl(25 95% 53%) 100%);
     --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
