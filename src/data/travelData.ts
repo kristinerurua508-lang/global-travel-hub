@@ -3,58 +3,94 @@ import { Insurance, CurrencyExchange, InternetProvider, TravelCompany, Hotel, La
 export const insuranceByCountry: Record<string, Insurance[]> = {
   turkey: [
     {
-      name: "Allianz Travel Insurance",
-      type: "Comprehensive",
-      coverage: "Medical, Trip Cancellation, Lost Luggage",
-      price: "€45-120 per trip",
+      name: "TBC Insurance (Georgian)",
+      type: "Comprehensive Travel",
+      coverage: "Medical €100,000, Trip Cancellation, Luggage, COVID-19",
+      price: "150-300 GEL per trip",
       recommended: true,
-      website: "https://www.allianz-assistance.com"
+      website: "https://www.tbcinsurance.ge"
     },
     {
-      name: "AXA Schengen",
-      type: "Medical",
-      coverage: "Medical emergencies up to €50,000",
-      price: "€35-80 per trip",
+      name: "Aldagi BCI (Georgian)",
+      type: "Travel Insurance",
+      coverage: "Medical €50,000, Accident, Emergency Evacuation",
+      price: "120-250 GEL per trip",
       recommended: true,
-      website: "https://www.axa-schengen.com"
+      website: "https://www.aldagi.ge"
+    },
+    {
+      name: "Insurance Company IMEDI L (Georgian)",
+      type: "International Travel",
+      coverage: "Medical, Trip Cancellation, Baggage Protection",
+      price: "100-280 GEL per trip",
+      recommended: true,
+      website: "https://www.icil.ge"
     }
   ],
   uae: [
     {
-      name: "Oman Insurance Company",
-      type: "Comprehensive",
-      coverage: "Medical, Accident, Emergency Evacuation",
-      price: "$60-150 per trip",
+      name: "TBC Insurance (Georgian)",
+      type: "Comprehensive Travel",
+      coverage: "Medical $100,000, Trip Cancellation, Luggage, COVID-19",
+      price: "200-400 GEL per trip",
       recommended: true,
-      website: "https://www.oman-insurance.ae"
+      website: "https://www.tbcinsurance.ge"
+    },
+    {
+      name: "Aldagi BCI (Georgian)",
+      type: "Travel Insurance",
+      coverage: "Medical $75,000, Accident, Emergency Services",
+      price: "180-350 GEL per trip",
+      recommended: true,
+      website: "https://www.aldagi.ge"
     }
   ],
-  // Add more countries as needed
 };
 
 export const currencyExchangeByCountry: Record<string, CurrencyExchange[]> = {
   turkey: [
     {
-      name: "Doviz.com Exchange Points",
-      location: "Istanbul Airport, Taksim, Sultanahmet",
-      rating: 4.5,
-      fees: "1-2% commission",
+      name: "TBC Bank (Georgian - Before Travel)",
+      location: "All TBC branches in Georgia",
+      rating: 4.8,
+      fees: "Best rates, exchange before departure",
       recommended: true
     },
     {
-      name: "PTT (Turkish Post)",
-      location: "Nationwide branches",
-      rating: 4.2,
-      fees: "Lower rates, 0.5-1.5% commission",
+      name: "Bank of Georgia (Georgian - Before Travel)",
+      location: "All BOG branches in Georgia",
+      rating: 4.7,
+      fees: "Good rates, no commission for account holders",
       recommended: true
+    },
+    {
+      name: "Liberty Bank (Georgian - Before Travel)",
+      location: "All Liberty branches in Georgia",
+      rating: 4.6,
+      fees: "Competitive rates for Lira exchange",
+      recommended: true
+    },
+    {
+      name: "Doviz.com Exchange (In Turkey)",
+      location: "Istanbul Airport, Taksim, Sultanahmet",
+      rating: 4.3,
+      fees: "1-2% commission",
+      recommended: false
     }
   ],
   uae: [
     {
-      name: "Al Ansari Exchange",
+      name: "TBC Bank (Georgian - Before Travel)",
+      location: "All TBC branches in Georgia",
+      rating: 4.8,
+      fees: "Exchange USD or EUR in Georgia first",
+      recommended: true
+    },
+    {
+      name: "Al Ansari Exchange (In UAE)",
       location: "Dubai Mall, Marina Mall, Airport",
-      rating: 4.7,
-      fees: "0% commission, competitive rates",
+      rating: 4.5,
+      fees: "Good rates for GEL to AED",
       recommended: true
     }
   ],
@@ -63,28 +99,44 @@ export const currencyExchangeByCountry: Record<string, CurrencyExchange[]> = {
 export const internetProvidersByCountry: Record<string, InternetProvider[]> = {
   turkey: [
     {
-      name: "Turkcell Tourist Line",
-      type: "Prepaid SIM",
-      price: "€15-40",
-      coverage: "Nationwide 4G/5G",
-      speed: "Up to 100 Mbps",
+      name: "Magti / Beeline International Roaming",
+      type: "Georgian Roaming",
+      price: "50-150 GEL/week",
+      coverage: "Turkey nationwide",
+      speed: "4G/5G speeds",
       recommended: true
     },
     {
-      name: "Vodafone Turkey",
-      type: "Tourist Package",
-      price: "€12-35",
-      coverage: "Major cities 4G/5G",
-      speed: "Up to 80 Mbps",
+      name: "Silknet Roaming Packages",
+      type: "Georgian Roaming",
+      price: "45-140 GEL/week",
+      coverage: "Turkey full coverage",
+      speed: "High-speed data",
+      recommended: true
+    },
+    {
+      name: "Turkcell Tourist SIM (Buy in Turkey)",
+      type: "Local Prepaid SIM",
+      price: "300-800 TL",
+      coverage: "Nationwide 4G/5G",
+      speed: "Up to 100 Mbps",
       recommended: true
     }
   ],
   uae: [
     {
-      name: "Etisalat Tourist SIM",
-      type: "Prepaid SIM",
+      name: "Magti / Beeline International",
+      type: "Georgian Roaming",
+      price: "100-250 GEL/week",
+      coverage: "UAE-wide",
+      speed: "5G speeds",
+      recommended: true
+    },
+    {
+      name: "Etisalat Tourist SIM (Buy in UAE)",
+      type: "Local Prepaid",
       price: "$30-60",
-      coverage: "UAE-wide 5G",
+      coverage: "UAE 5G",
       speed: "Up to 200 Mbps",
       recommended: true
     }
@@ -94,36 +146,52 @@ export const internetProvidersByCountry: Record<string, InternetProvider[]> = {
 export const travelCompaniesByCountry: Record<string, TravelCompany[]> = {
   turkey: [
     {
-      name: "Turkey Travel Planner",
+      name: "Travel House Georgia (Georgian)",
+      rating: 4.9,
+      services: ["Turkey Packages", "Hotel Booking", "Visa Support", "Group Tours"],
+      price: "800-2500 GEL",
+      recommended: true,
+      reviews: 3421
+    },
+    {
+      name: "Caucasus Travel (Georgian)",
       rating: 4.8,
-      services: ["Custom Tours", "Hotel Booking", "Airport Transfer"],
-      price: "$$$",
+      services: ["Turkey Tours", "All-Inclusive Packages", "Family Tours"],
+      price: "900-2800 GEL",
       recommended: true,
       reviews: 2847
     },
     {
-      name: "Istanbul Tour Studio",
-      rating: 4.9,
-      services: ["City Tours", "Cultural Experiences", "Photography Tours"],
-      price: "$$",
-      recommended: true,
-      reviews: 1923
-    },
-    {
-      name: "Cappadocia Travel Center",
+      name: "Geo Travel (Georgian)",
       rating: 4.7,
-      services: ["Hot Air Balloon", "Cave Hotels", "Underground Cities"],
-      price: "$$$",
+      services: ["Istanbul Tours", "Antalya Packages", "Custom Itineraries"],
+      price: "750-2400 GEL",
       recommended: true,
-      reviews: 3156
+      reviews: 2134
     },
     {
-      name: "Cheap Tours Istanbul",
-      rating: 2.3,
-      services: ["Budget Tours"],
-      price: "$",
+      name: "Phoenix Travel Agency (Georgian)",
+      rating: 4.9,
+      services: ["Premium Turkey Tours", "Business Travel", "VIP Services"],
+      price: "1200-3500 GEL",
+      recommended: true,
+      reviews: 1856
+    },
+    {
+      name: "Silk Road Tours Georgia",
+      rating: 4.6,
+      services: ["Budget Turkey Tours", "Student Packages", "Group Discounts"],
+      price: "600-1800 GEL",
+      recommended: true,
+      reviews: 1634
+    },
+    {
+      name: "Cheap Holiday Tours",
+      rating: 2.1,
+      services: ["Low-cost packages"],
+      price: "400-900 GEL",
       recommended: false,
-      warning: "Multiple complaints about hidden fees and unprofessional guides",
+      warning: "Poor customer service, hidden costs, unreliable bookings. Many Georgian travelers reported issues.",
       reviews: 432
     }
   ],

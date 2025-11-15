@@ -45,7 +45,7 @@ export const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <Plane className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">Georgian Travel Guide</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Phoenix Travel</span>
           </Link>
 
           {/* Desktop Navigation */}
