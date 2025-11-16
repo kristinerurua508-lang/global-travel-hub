@@ -1,10 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { CountrySelector } from "@/components/CountrySelector";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { BookingButton } from "@/components/BookingButton";
 import { internetProvidersByCountry } from "@/data/travelData";
-import { Wifi } from "lucide-react";
+import { roamingoPackages } from "@/data/roamingoPackages";
+import { Wifi, Globe } from "lucide-react";
 
 const Internet = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,6 +17,7 @@ const Internet = () => {
   };
 
   const providers = selectedCountry ? internetProvidersByCountry[selectedCountry] || [] : [];
+  const roamingoOptions = selectedCountry ? roamingoPackages[selectedCountry] || [] : [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,68 +27,53 @@ const Internet = () => {
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2 flex items-center gap-2">
             <Wifi className="h-8 w-8 text-primary" />
-            Internet & SIM Cards
+            Internet & Mobile Data
           </h1>
-          <p className="text-muted-foreground text-lg">
-            Stay connected with local mobile providers
-          </p>
+          <p className="text-muted-foreground text-lg">Stay connected with Roamingo eSIM</p>
         </div>
 
         <div className="mb-12">
-          <CountrySelector 
-            selectedCountry={selectedCountry} 
-            onCountrySelect={handleCountrySelect} 
-          />
+          <CountrySelector selectedCountry={selectedCountry} onCountrySelect={handleCountrySelect} />
         </div>
 
-        {selectedCountry && providers.length > 0 && (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-semibold">Available Providers</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {providers.map((provider, index) => (
-                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold">{provider.name}</h3>
-                    {provider.recommended && (
-                      <Badge className="bg-success">Recommended</Badge>
-                    )}
-                  </div>
-                  <div className="space-y-3">
-                    <div>
-                      <span className="font-semibold">Type:</span> {provider.type}
+        {selectedCountry && roamingoOptions.length > 0 && (
+          <div className="space-y-6 mb-12">
+            <div className="flex items-center space-x-3">
+              <Globe className="h-6 w-6 text-accent" />
+              <h2 className="text-2xl font-semibold">Roamingo eSIM Packages</h2>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {roamingoOptions.map((pkg) => (
+                <Card key={pkg.id} className={pkg.recommended ? "border-accent" : ""}>
+                  <CardHeader>
+                    <CardTitle className="flex justify-between items-start">
+                      <span>{pkg.name}</span>
+                      {pkg.recommended && <Badge>Recommended</Badge>}
+                    </CardTitle>
+                    <CardDescription>{pkg.duration}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span>Data:</span>
+                        <span className="font-semibold">{pkg.data}</span>
+                      </div>
+                      <div className="flex justify-between text-lg">
+                        <span className="font-semibold">Price:</span>
+                        <span className="text-primary font-bold">₾{pkg.price}</span>
+                      </div>
                     </div>
-                    <div>
-                      <span className="font-semibold text-primary">Price:</span> {provider.price}
-                    </div>
-                    <div>
-                      <span className="font-semibold">Coverage:</span> {provider.coverage}
-                    </div>
-                    <div>
-                      <span className="font-semibold">Speed:</span> {provider.speed}
-                    </div>
-                  </div>
+                    <BookingButton
+                      providerName={pkg.name}
+                      bookingType="internet"
+                      price={pkg.price}
+                      destination={pkg.country}
+                      packageDetails={{ data: pkg.data, duration: pkg.duration }}
+                    />
+                  </CardContent>
                 </Card>
               ))}
             </div>
-
-            <Card className="p-6 bg-muted/50">
-              <h3 className="text-lg font-semibold mb-2">📱 Tips for Buying SIM Cards</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Buy SIM cards at official stores or airports</li>
-                <li>• Bring your passport for registration</li>
-                <li>• Check if your phone is unlocked</li>
-                <li>• Ask about tourist packages with data</li>
-                <li>• Test the SIM before leaving the store</li>
-              </ul>
-            </Card>
-          </div>
-        )}
-
-        {selectedCountry && providers.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">
-              Internet provider information for this country is being updated.
-            </p>
           </div>
         )}
       </div>

@@ -1,1 +1,10 @@
 project_id = "mzzbrpwhqyajfxzzvqig"
+
+[functions.get-country-info]
+verify_jwt = false
+
+[functions.check-device]
+verify_jwt = false
+
+[functions.create-booking]
+verify_jwt = true

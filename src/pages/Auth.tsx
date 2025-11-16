@@ -1,74 +1,78 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/hooks/use-toast";
-import { LogIn } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { LogIn, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
-  const { toast } = useToast();
+  const { user, signIn, signUp } = useAuth();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [signupFullName, setSignupFullName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate login
-    setTimeout(() => {
-      toast({
-        title: "Login Successful",
-        description: "Welcome back to Georgian Travel Guide!",
-      });
+    try {
+      await signIn(loginEmail, loginPassword);
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    // Simulate signup
-    setTimeout(() => {
-      toast({
-        title: "Account Created",
-        description: "Your account has been created successfully!",
-      });
-      setIsLoading(false);
-    }, 1000);
-  };
+    if (signupPassword !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
 
-  const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate password reset
-    setTimeout(() => {
-      toast({
-        title: "Password Reset Email Sent",
-        description: "Check your email for password reset instructions.",
-      });
+    try {
+      await signUp(signupEmail, signupPassword, signupFullName);
+      setLoginEmail(signupEmail);
+    } catch (error) {
+      console.error("Signup error:", error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       <Navbar />
       
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
             <LogIn className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h1 className="text-3xl font-bold mb-2">Welcome</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome to Phoenix Travel</h1>
             <p className="text-muted-foreground">
-              Access your Georgian Travel Guide account
+              Secure your account with strong authentication
             </p>
           </div>
 
-          <Card className="p-8">
+          <Card className="p-8 shadow-lg">
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-8">
                 <TabsTrigger value="login">Login</TabsTrigger>
@@ -82,6 +86,8 @@ const Auth = () => {
                     <Input 
                       id="login-email" 
                       type="email" 
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
                       placeholder="your@email.com"
                       required 
                     />
@@ -91,9 +97,15 @@ const Auth = () => {
                     <Input 
                       id="login-password" 
                       type="password" 
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
                       placeholder="••••••••"
                       required 
                     />
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <Shield className="w-4 h-4" />
+                    <span>Maximum 2 devices allowed per account</span>
                   </div>
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? "Logging in..." : "Login"}
@@ -108,6 +120,8 @@ const Auth = () => {
                     <Input 
                       id="signup-name" 
                       type="text" 
+                      value={signupFullName}
+                      onChange={(e) => setSignupFullName(e.target.value)}
                       placeholder="Your Name"
                       required 
                     />
@@ -117,6 +131,8 @@ const Auth = () => {
                     <Input 
                       id="signup-email" 
                       type="email" 
+                      value={signupEmail}
+                      onChange={(e) => setSignupEmail(e.target.value)}
                       placeholder="your@email.com"
                       required 
                     />
@@ -126,49 +142,43 @@ const Auth = () => {
                     <Input 
                       id="signup-password" 
                       type="password" 
+                      value={signupPassword}
+                      onChange={(e) => setSignupPassword(e.target.value)}
                       placeholder="••••••••"
                       required 
                     />
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <p>Password must contain:</p>
+                      <ul className="list-disc list-inside space-y-0.5">
+                        <li>At least 8 characters</li>
+                        <li>One uppercase letter</li>
+                        <li>One lowercase letter</li>
+                        <li>One number</li>
+                        <li>One special character (!@#$%^&*)</li>
+                      </ul>
+                    </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-confirm">Confirm Password</Label>
+                    <Label htmlFor="confirm-password">Confirm Password</Label>
                     <Input 
-                      id="signup-confirm" 
+                      id="confirm-password" 
                       type="password" 
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="••••••••"
                       required 
                     />
                   </div>
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <Shield className="w-4 h-4" />
+                    <span>Your account is limited to 2 devices</span>
+                  </div>
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Creating account..." : "Sign Up"}
+                    {isLoading ? "Creating Account..." : "Create Account"}
                   </Button>
                 </form>
               </TabsContent>
             </Tabs>
-
-            <div className="mt-6">
-              <Tabs defaultValue="reset" className="w-full">
-                <TabsList className="w-full">
-                  <TabsTrigger value="reset" className="w-full">Forgot Password?</TabsTrigger>
-                </TabsList>
-                <TabsContent value="reset" className="mt-4">
-                  <form onSubmit={handleForgotPassword} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="reset-email">Email</Label>
-                      <Input 
-                        id="reset-email" 
-                        type="email" 
-                        placeholder="your@email.com"
-                        required 
-                      />
-                    </div>
-                    <Button type="submit" variant="outline" className="w-full" disabled={isLoading}>
-                      {isLoading ? "Sending..." : "Reset Password"}
-                    </Button>
-                  </form>
-                </TabsContent>
-              </Tabs>
-            </div>
           </Card>
         </div>
       </div>
