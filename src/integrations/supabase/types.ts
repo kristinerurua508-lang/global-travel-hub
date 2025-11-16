@@ -14,7 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          booking_date: string | null
+          booking_type: string
+          created_at: string | null
+          destination: string | null
+          id: string
+          package_details: Json | null
+          price: number | null
+          provider_name: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          booking_date?: string | null
+          booking_type: string
+          created_at?: string | null
+          destination?: string | null
+          id?: string
+          package_details?: Json | null
+          price?: number | null
+          provider_name: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          booking_date?: string | null
+          booking_type?: string
+          created_at?: string | null
+          destination?: string | null
+          id?: string
+          package_details?: Json | null
+          price?: number | null
+          provider_name?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      premium_subscriptions: {
+        Row: {
+          created_at: string | null
+          discount_percentage: number
+          end_date: string
+          id: string
+          is_active: boolean | null
+          plan_type: string
+          start_date: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          discount_percentage?: number
+          end_date: string
+          id?: string
+          is_active?: boolean | null
+          plan_type: string
+          start_date?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          discount_percentage?: number
+          end_date?: string
+          id?: string
+          is_active?: boolean | null
+          plan_type?: string
+          start_date?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_devices: {
+        Row: {
+          created_at: string | null
+          device_fingerprint: string
+          device_name: string | null
+          id: string
+          is_blocked: boolean | null
+          last_login: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          device_fingerprint: string
+          device_name?: string | null
+          id?: string
+          is_blocked?: boolean | null
+          last_login?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          device_fingerprint?: string
+          device_name?: string | null
+          id?: string
+          is_blocked?: boolean | null
+          last_login?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      verification_codes: {
+        Row: {
+          code: string
+          created_at: string | null
+          email: string
+          expires_at: string
+          id: string
+          used: boolean | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          email: string
+          expires_at: string
+          id?: string
+          used?: boolean | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          email?: string
+          expires_at?: string
+          id?: string
+          used?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
